@@ -1,0 +1,77 @@
+<html>
+	<head>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/phaser/3.23.0/phaser.min.js'></script>
+	</head>
+	<body>
+		
+		<script>
+		
+			const draggables = [
+				'barrel','door2','hole','red','tile','wall_h','blue','elec','laser','robot','trap','wall_v','door1','green','light','terminal','turn'
+			];
+			
+			const NUM_OF_EACH = 12;
+			
+			function preload (){
+				draggables.forEach(name=>{
+					this.load.image(name, 'assets/' + name + '.png');
+				});
+				
+				this.load.image('background', 'assets/background.png');
+			}
+
+			function create (){
+				const bg = this.add.image(0, 0, 'background');
+				bg.scaleY = 1256/1024;
+				bg.setOrigin(0, 0);
+				for(let i = 3; i < 15; i++){
+					for(let j = 0; j < 11; j++){
+						var image = this.add.sprite(i*64, j*64 + 32, 'tile').setInteractive();
+						image.setOrigin(0, 0);
+					}
+				}
+				
+				const X0 = 10;
+				const Y0 = 10;
+				const Y_MAX = 710;
+				
+				const X_GAP = 90;
+				const Y_GAP = 80;
+				
+				let x = X0, y = Y0;
+								
+				draggables.forEach((name, n)=>{
+					for(let i = 0; i < NUM_OF_EACH; i++){
+						var image = this.add.sprite(x, y, name).setInteractive();
+						image.setOrigin(0, 0);
+						this.input.setDraggable(image);
+					}
+					y += Y_GAP;
+					if(y > Y_MAX){
+						y = Y0;
+						x += X_GAP;
+					}
+				});
+				
+				this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+					gameObject.x = dragX;
+					gameObject.y = dragY;
+				});
+				
+			}
+			
+			var config = {
+				type: Phaser.WEBGL,
+				parent: 'phaser-example',
+				scene: {
+					preload: preload,
+					create: create
+				}
+			};
+
+			var game = new Phaser.Game(config);
+			
+		</script>
+	</body>
+</html>
+
