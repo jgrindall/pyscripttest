@@ -7,7 +7,7 @@
 		<script>
 		
 			const draggables = [
-				'barrel','door2','hole','red','tile','wall_h','blue','elec','laser','robot','trap','wall_v','door1','green','light','terminal','turn'
+				'barrel','door1', 'door2','door3', 'door4', 'hole','red','tile','wall_h','blue','elec','laser','robot','trap','wall_v','door1','green','light','terminal','turn'
 			];
 			
 			const NUM_OF_EACH = 12;
@@ -24,7 +24,7 @@
 				const bg = this.add.image(0, 0, 'background');
 				bg.scaleY = 1256/1024;
 				bg.setOrigin(0, 0);
-				for(let i = 3; i < 15; i++){
+				for(let i = 4; i < 15; i++){
 					for(let j = 0; j < 11; j++){
 						var image = this.add.sprite(i*64, j*64 + 32, 'tile').setInteractive();
 						image.setOrigin(0, 0);
