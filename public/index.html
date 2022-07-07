@@ -1,77 +1,46 @@
 <html>
-	<head>
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/phaser/3.23.0/phaser.min.js'></script>
-	</head>
-	<body>
-		
-		<script>
-		
-			const draggables = [
-				'barrel','door1', 'door2','door3', 'door4', 'hole','red','tile','wall_h','blue','elec','laser','robot','trap','wall_v','door1','green','light','terminal','turn'
-			];
-			
-			const NUM_OF_EACH = 12;
-			
-			function preload (){
-				draggables.forEach(name=>{
-					this.load.image(name, 'assets/' + name + '.png');
-				});
-				
-				this.load.image('background', 'assets/background.png');
-			}
 
-			function create (){
-				const bg = this.add.image(0, 0, 'background');
-				bg.scaleY = 1256/1024;
-				bg.setOrigin(0, 0);
-				for(let i = 4; i < 15; i++){
-					for(let j = 0; j < 11; j++){
-						var image = this.add.sprite(i*64, j*64 + 32, 'tile').setInteractive();
-						image.setOrigin(0, 0);
-					}
-				}
-				
-				const X0 = 10;
-				const Y0 = 10;
-				const Y_MAX = 710;
-				
-				const X_GAP = 90;
-				const Y_GAP = 80;
-				
-				let x = X0, y = Y0;
-								
-				draggables.forEach((name, n)=>{
-					for(let i = 0; i < NUM_OF_EACH; i++){
-						var image = this.add.sprite(x, y, name).setInteractive();
-						image.setOrigin(0, 0);
-						this.input.setDraggable(image);
-					}
-					y += Y_GAP;
-					if(y > Y_MAX){
-						y = Y0;
-						x += X_GAP;
-					}
-				});
-				
-				this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
-					gameObject.x = dragX;
-					gameObject.y = dragY;
-				});
-				
-			}
-			
-			var config = {
-				type: Phaser.WEBGL,
-				parent: 'phaser-example',
-				scene: {
-					preload: preload,
-					create: create
-				}
-			};
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css"/>
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
+    <style>
+        .text {
+            border: 1px solid black;
+            background: #ccc;
+            width:500px;
+            height:500px;
+        }
 
-			var game = new Phaser.Game(config);
-			
-		</script>
-	</body>
+        body, textarea, button, .text, canvas {
+            margin: 10px;
+            padding: 10px;
+        }
+
+        button {
+            background: #666;
+            padding: 10px;
+        }
+        body{
+            overflow:auto !important;
+        }
+        #container{
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+    <py-env>
+        - paths:
+            - /mymodule.py
+    </py-env>
+    <div id="container">
+        <div class="text" id="code" contenteditable="true"></div>
+        <div class="text" id="output"></div>
+    </div>
+    <button type="button" id="run">Run</button>
+    <script type="module" src="main.js"></script>
+</body>
+
 </html>
-

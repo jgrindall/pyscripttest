@@ -1,10 +1,14 @@
 {
-  "name": "ecsy",
+  "name": "pyscript_test",
   "version": "0.0.1",
-  "description": "ecsy",
+  "description": "pyscript_test",
+  "engines": {
+    "node": "14.x"
+  },
   "main": "web.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node web"
   },
   "author": "jgrindall",
   "license": "BSD",
